@@ -6,6 +6,7 @@ const cors = require('cors');
 const db = require('./models');
 const userRoutes = require('./routes/userRoutes'); 
 const  companyRoutes= require("./routes/companyRoutes")
+const equityRoutes=require("./routes/equityRoutes");
 
 dotenv.config();
 
@@ -13,9 +14,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-  origin: 'https://creatorship-96e0e.firebaseapp.com', // Replace with your React app's URL
+  origin: 
+  // "http://localhost:5173",
+  'https://creatorship-96e0e.firebaseapp.com',// Replace with your React app's URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, // Allow credentials (cookies, authorization )
+  credentials: true, // Allow credentials (cookies, authorization headers)
 };
 
 app.use(express.json());
@@ -28,6 +31,8 @@ app.use(cors(corsOptions));
 // Use the user routes
 app.use('/api', userRoutes);
 app.use('/api', companyRoutes);
+app.use('/api', equityRoutes);
+
 
 
 db.sequelize.authenticate()
