@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-  origin: 'https://prashanth036.github.io', // Replace with your React app's URL
+  // origin: 'https://prashanth036.github.io', // Replace with your React app's URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow credentials (cookies, authorization headers)
 };
@@ -31,7 +31,7 @@ app.use('/api', companyRoutes);
 
 
 db.sequelize.authenticate()
-  .then(() => db.sequelize.sync({ force: true }))
+  .then(() => db.sequelize.sync())
   .then(() => {
     console.log('Connection has been established successfully.');
     app.listen(port, () => {

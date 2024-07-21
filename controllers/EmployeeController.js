@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { generateAccessToken } = require('../middleware/isAuthenicatedMiddleware');
 const { validationResult } = require('express-validator');
+const db = require('../models');
+
 
 // Create Employee
 const createEmployee = async (req, res) => {
@@ -16,25 +18,22 @@ const createEmployee = async (req, res) => {
     }
 
     // Check if email or username already exists
-    const existingEmail = await Employee.findOne({ where: { email } });
+    const existingEmail = await db.Employee.findOne({ where: { email } });
     if (existingEmail) {
       return res.status(400).json({ message: 'Email already in use' });
     }
 
-    const existingUserName = await Employee.findOne({ where: { userName } });
+    const existingUserName = await db.Employee.findOne({ where: { userName } });
     if (existingUserName) {
       return res.status(400).json({ message: 'Username already in use' });
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // Create new employee
-    const newEmployee = await Employee.create({
+    const newEmployee = await db.Employee.create({
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      password,  // The password will be hashed in the model's `set` method
       userName
     });
 
@@ -52,24 +51,24 @@ const createEmployee = async (req, res) => {
     res.status(201).json({ accessToken });
   } catch (err) {
     console.error("createEmployee error:", err);
-    res.status(500).json({ error: err });
+    res.status(500).json(err);
   }
 };
 
-// Login Employee
 const loginEmployee = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     // Find employee by email
-    const employee = await Employee.findOne({ where: { email } });
+    const employee = await db.Employee.findOne({ where: { email } });
 
     if (!employee) {
       return res.status(400).json({ message: "Employee not found" });
     }
 
     // Check password
-    const isMatch = await bcrypt.compare(password, employee.password);
+    const isMatch = employee.validPassword(password);
+
     if (!isMatch) {
       return res.status(400).json({ message: "Incorrect password" });
     }
@@ -92,12 +91,13 @@ const loginEmployee = async (req, res) => {
   }
 };
 
+
 // Get Employee by ID
 const getEmployeeById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const employee = await Employee.findByPk(id);
+    const employee = await db.Employee.findByPk(id);
     if (employee) {
       res.status(200).json(employee);
     } else {
@@ -112,7 +112,7 @@ const getEmployeeById = async (req, res) => {
 // Get All Employees
 const getEmployees = async (req, res) => {
   try {
-    const employees = await Employee.findAll();
+    const employees = await db.Employee.findAll();
     res.status(200).json(employees);
   } catch (err) {
     console.error("getEmployees error:", err);
@@ -132,7 +132,7 @@ const updateEmployee = async (req, res) => {
       payload.password = await bcrypt.hash(password, salt);
     }
 
-    const [updatedCount] = await Employee.update(payload, { where: { id } });
+    const [updatedCount] = await db.Employee.update(payload, { where: { id } });
 
     if (updatedCount === 0) {
       return res.status(404).json({ error: 'Employee not found' });
@@ -150,7 +150,7 @@ const deleteEmployee = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const employee = await Employee.findByPk(id);
+    const employee = await db.Employee.findByPk(id);
     if (!employee) {
       return res.status(404).json({ error: 'Employee not found' });
     }
