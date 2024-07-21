@@ -13,9 +13,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-  // origin: 'https://prashanth036.github.io', // Replace with your React app's URL
+  origin: 'https://creatorship-96e0e.firebaseapp.com/', // Replace with your React app's URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, // Allow credentials (cookies, authorization headers)
+  credentials: true, // Allow credentials (cookies, authorization )
 };
 
 app.use(express.json());

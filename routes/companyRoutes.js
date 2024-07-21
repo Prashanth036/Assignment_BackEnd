@@ -16,7 +16,7 @@ const {
 
 // Define route to get seed companies
 router.post('/seed-companies', fetchOrganizations);
-router.get('/people', getRandomCreatorsController);
+router.get('/people',isAuthenticateMiddleware, getRandomCreatorsController);
 
 //for company table
 
