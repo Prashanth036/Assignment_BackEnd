@@ -14,9 +14,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-  origin: 
-  // "http://localhost:5173",
-  'https://creatorship-96e0e.firebaseapp.com',// Replace with your React app's URL
+  origin: process.env.REACT_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow credentials (cookies, authorization headers)
 };
@@ -36,7 +34,7 @@ app.use('/api', equityRoutes);
 
 
 db.sequelize.authenticate()
-  .then(() => db.sequelize.sync())
+  .then(() => db.sequelize.sync({force:false}))
   .then(() => {
     console.log('Connection has been established successfully.');
     app.listen(port, () => {

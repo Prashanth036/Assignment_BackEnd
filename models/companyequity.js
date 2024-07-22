@@ -1,7 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class CompanyEquity extends Model {
     /**
@@ -13,16 +12,24 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+
   CompanyEquity.init({
     businessName: DataTypes.STRING,
     vision: DataTypes.STRING,
     companyValuation: DataTypes.STRING,
     equityPercentage: DataTypes.STRING,
     description: DataTypes.TEXT,
-    contactEmail: DataTypes.STRING
+    contactEmail: DataTypes.STRING,
+    founderName: DataTypes.STRING,  // New field
+    employeeName: DataTypes.STRING,  // New field
+    contactPhone: DataTypes.STRING,  // New field
+    address: DataTypes.STRING,       // New field for company address
+    website: DataTypes.STRING,       // New field for company website
+    establishedYear: DataTypes.INTEGER // New field for the year the company was established
   }, {
     sequelize,
     modelName: 'CompanyEquity',
   });
+  
   return CompanyEquity;
 };

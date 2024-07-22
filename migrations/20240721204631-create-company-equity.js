@@ -1,43 +1,39 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('CompanyEquities', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      businessName: {
-        type: Sequelize.STRING
-      },
-      vision: {
-        type: Sequelize.STRING
-      },
-      companyValuation: {
-        type: Sequelize.STRING
-      },
-      equityPercentage: {
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.TEXT
-      },
-      contactEmail: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('CompanyEquities', 'founderName', {
+      type: Sequelize.STRING,
+      allowNull: true,
+    });
+    await queryInterface.addColumn('CompanyEquities', 'employeeName', {
+      type: Sequelize.STRING,
+      allowNull: true,
+    });
+    await queryInterface.addColumn('CompanyEquities', 'contactPhone', {
+      type: Sequelize.STRING,
+      allowNull: true,
+    });
+    await queryInterface.addColumn('CompanyEquities', 'address', {
+      type: Sequelize.STRING,
+      allowNull: true,
+    });
+    await queryInterface.addColumn('CompanyEquities', 'website', {
+      type: Sequelize.STRING,
+      allowNull: true,
+    });
+    await queryInterface.addColumn('CompanyEquities', 'establishedYear', {
+      type: Sequelize.INTEGER,
+      allowNull: true,
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('CompanyEquities');
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn('CompanyEquities', 'founderName');
+    await queryInterface.removeColumn('CompanyEquities', 'employeeName');
+    await queryInterface.removeColumn('CompanyEquities', 'contactPhone');
+    await queryInterface.removeColumn('CompanyEquities', 'address');
+    await queryInterface.removeColumn('CompanyEquities', 'website');
+    await queryInterface.removeColumn('CompanyEquities', 'establishedYear');
   }
 };
