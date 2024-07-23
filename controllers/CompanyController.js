@@ -3,10 +3,10 @@ const db = require('../models');
 
 // Create a new company
 const createCompany = async (req, res) => {
-  const { name, address, contactEmail, contactPhone, website, description } = req.body;
+  const { name, address, contactEmail, contactPhone, website, description,contacted } = req.body;
   // console.log(req.body)
   try {
-    const company = await db.Company.create({ name, address, contactEmail, contactPhone, website, description });
+    const company = await db.Company.create({ name, address, contactEmail, contactPhone, website, description,contacted });
     res.status(201).json(company);
   } catch (err) {
     console.error("createCompany error:", err);

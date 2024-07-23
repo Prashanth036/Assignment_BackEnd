@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     address: DataTypes.STRING,
     contactEmail: DataTypes.STRING,
-    contactPhone: DataTypes.STRING,
+    contact: DataTypes.STRING,
     website: DataTypes.STRING,
     description: DataTypes.TEXT,
     contacted: {
