@@ -18,6 +18,7 @@ function tokenController(req, res) {
     // Destructuring refreshToken from cookie
     const refreshToken = req.cookies.jwt;
 
+    console.log(refreshToken)
     // Verifying refresh token
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
       if (err) {
@@ -27,7 +28,7 @@ function tokenController(req, res) {
       } else {
         // Correct token we send a new access token
         const accessToken = generateAccessToken(decoded.username, process.env.JWTSECRET, "10m")
-        return res.json({ "accessToken": accessToken });
+        return res.json({ accessToken });
       }
     });
   } else {
@@ -80,7 +81,7 @@ const isAuthenticateMiddleware = (req, res, next) => {
       }
     });
   }
-
+  // console.log(authHeader)
   jwt.verify(token, process.env.JWTSECRET, (err, user) => {
     if (err) {
       console.log("Invalid access token");

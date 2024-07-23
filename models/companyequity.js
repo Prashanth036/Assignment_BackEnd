@@ -1,7 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   class CompanyEquity extends Model {
     /**
      * Helper method for defining associations.
@@ -9,27 +9,72 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Define association here
+      CompanyEquity.hasMany(models.Partnership, { foreignKey: 'businessId' });
     }
   }
 
   CompanyEquity.init({
-    businessName: DataTypes.STRING,
-    vision: DataTypes.STRING,
-    companyValuation: DataTypes.STRING,
-    equityPercentage: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    contactEmail: DataTypes.STRING,
-    founderName: DataTypes.STRING,  // New field
-    employeeName: DataTypes.STRING,  // New field
-    contactPhone: DataTypes.STRING,  // New field
-    address: DataTypes.STRING,       // New field for company address
-    website: DataTypes.STRING,       // New field for company website
-    establishedYear: DataTypes.INTEGER // New field for the year the company was established
+    businessName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notNull: { msg: 'Business name is required' },
+        len: [3, 50]
+      }
+    },
+    vision: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    companyValuation: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    equityPercentage: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    contactEmail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
+    },
+    founderName: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    employeeName: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    contactPhone: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    website: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    establishedYear: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    }
   }, {
     sequelize,
     modelName: 'CompanyEquity',
   });
-  
+   CompanyEquity.sync()
   return CompanyEquity;
 };

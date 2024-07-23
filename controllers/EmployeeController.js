@@ -74,7 +74,7 @@ const loginEmployee = async (req, res) => {
     }
 
     // Generate tokens
-    const accessToken = generateAccessToken(employee.email, process.env.JWTSECRET, "10m");
+    const accessToken = generateAccessToken(employee.email, process.env.JWTSECRET, "30m");
     const refreshToken = generateAccessToken(employee.email, process.env.REFRESH_TOKEN_SECRET, "24h");
 
     res.cookie("jwt", refreshToken, {

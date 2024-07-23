@@ -19,10 +19,16 @@ module.exports = (sequelize, DataTypes) => {
     contactEmail: DataTypes.STRING,
     contactPhone: DataTypes.STRING,
     website: DataTypes.STRING,
-    description: DataTypes.TEXT
+    description: DataTypes.TEXT,
+    contacted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false // Default value for new records
+    }
   }, {
     sequelize,
     modelName: 'Company',
   });
+  
   return Company;
 };
+ 

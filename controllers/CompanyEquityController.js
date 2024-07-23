@@ -65,8 +65,26 @@ const getBusinessEquityFormDetails = async (req, res) => {
   }
 };
 
+const deleteBussinessEquityFormById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Find the equity record by primary key (id)
+    const equity = await db.CompanyEquity.findByPk(id);
+    if (!equity) {
+      return res.status(404).json({ error: 'Equity record not found' });
+    }
+
+    // Delete the equity record
+    await equity.destroy();
+    res.status(200).json({ message: 'Equity record deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createBussinessEquityForm,
   getBussinessEquityFormDetailsById,
-  getBusinessEquityFormDetails
+  getBusinessEquityFormDetails,
+  deleteBussinessEquityFormById
 };

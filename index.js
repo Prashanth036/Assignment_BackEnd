@@ -7,6 +7,8 @@ const db = require('./models');
 const userRoutes = require('./routes/userRoutes'); 
 const  companyRoutes= require("./routes/companyRoutes")
 const equityRoutes=require("./routes/equityRoutes");
+const partnerRoutes=require("./routes/partnershipRoutes");
+
 
 dotenv.config();
 
@@ -30,6 +32,7 @@ app.use(cors(corsOptions));
 app.use('/api', userRoutes);
 app.use('/api', companyRoutes);
 app.use('/api', equityRoutes);
+app.use("/api",partnerRoutes)
 
 
 

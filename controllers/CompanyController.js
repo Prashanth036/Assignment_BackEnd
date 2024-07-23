@@ -4,7 +4,7 @@ const db = require('../models');
 // Create a new company
 const createCompany = async (req, res) => {
   const { name, address, contactEmail, contactPhone, website, description } = req.body;
-// console.log(req.body)
+  // console.log(req.body)
   try {
     const company = await db.Company.create({ name, address, contactEmail, contactPhone, website, description });
     res.status(201).json(company);
@@ -46,13 +46,13 @@ const getCompanyById = async (req, res) => {
 // Update a company by ID
 const updateCompany = async (req, res) => {
   const { companyId } = req.params;
-  const { name, address, contactEmail, contactPhone, website, description } = req.body;
+  const body = req.body
 
   try {
     const [updatedCount] = await db.Company.update(
-      { name, address, contactEmail, contactPhone, website, description },
-      { where: { id: companyId } }
+      body, { where: { id: companyId } }
     );
+
 
     if (updatedCount === 0) {
       return res.status(404).json({ error: 'Company not found' });
