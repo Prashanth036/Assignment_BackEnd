@@ -44,12 +44,12 @@ const getAllPartnerships = async (req, res) => {
           {
             model: db.CompanyEquity,
             // as: 'companyEquity', // Ensure this alias matches the one used in the model definition
-            attributes: ['id', 'businessName', 'vision', 'companyValuation', 'equityPercentage', 'description', 'contactEmail', 'founderName', 'employeeName', 'contactPhone', 'address', 'website', 'establishedYear']
+            attributes: ['businessId', 'businessName', 'vision', 'companyValuation', 'equityPercentage', 'description', 'contactEmail', 'founderName', 'employeeName', 'contactPhone', 'address', 'website', 'establishedYear']
           },
           {
             model: db.CreatorForm,
             // as: 'creatorForm', // Ensure this alias matches the one used in the model definition
-            attributes: ['id', 'name', 'bio', 'age', 'contact', 'email', 'services', 'skills', 'description', 'portfolioLink', 'offerType', 'equityPercentage', 'fundingAmount', 'ideaDescription']
+            attributes: ['creatorId', 'name', 'bio', 'age', 'contact', 'email', 'services', 'skills', 'description', 'portfolioLink', 'offerType', 'equityPercentage', 'fundingAmount', 'ideaDescription']
           }
         ]
       });

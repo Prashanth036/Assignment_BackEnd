@@ -4,13 +4,18 @@ const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   class CreatorForm extends Model {
     static associate(models) {
-      // Define associations here if needed
+      // Define associations here
       CreatorForm.hasMany(models.Partnership, { foreignKey: 'creatorId' });
-
     }
   }
 
   CreatorForm.init({
+    creatorId: { // Define as auto-incrementing primary key
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -49,7 +54,7 @@ module.exports = (sequelize) => {
     },
     portfolioLink: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
       // validate: {
       //   isUrl: true
       // }
@@ -78,6 +83,5 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'CreatorForm',
   });
-  CreatorForm.sync()
   return CreatorForm;
 };

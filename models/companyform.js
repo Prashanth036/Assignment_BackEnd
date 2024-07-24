@@ -15,6 +15,17 @@ module.exports = (sequelize) => {
   }
 
   CompanyEquity.init({
+    businessId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true, // Set this as the primary key
+      allowNull: false,
+      unique: true,
+      validate: {
+        isInt: { msg: 'Business ID must be an integer' },
+        notNull: { msg: 'Business ID is required' }
+      }
+    },
     businessName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -75,6 +86,7 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'CompanyEquity',
   });
-   CompanyEquity.sync()
+
+
   return CompanyEquity;
 };

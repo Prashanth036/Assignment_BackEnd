@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       references: {
         model: 'CompanyEquities', // Ensure this matches the name used in migrations
-        key: 'id'
+        key: 'businessId'
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       references: {
         model: 'CreatorForms', // Ensure this matches the name used in migrations
-        key: 'id'
+        key: 'creatorId'
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
@@ -71,7 +71,6 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'Partnership',
   });
-  Partnership.sync(); // Use cautiously, as it will drop tables
-
+ Partnership.sync({force:true})
   return Partnership;
 };

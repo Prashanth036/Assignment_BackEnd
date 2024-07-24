@@ -2,7 +2,7 @@ const express = require('express');
 const { createBussinessEquityForm,
     getBusinessEquityFormDetails,
     getBussinessEquityFormDetailsById, 
-    deleteBussinessEquityFormById} = require("../controllers/CompanyEquityController");
+    deleteBussinessEquityFormById} = require("../controllers/CompanyFormController");
 const { isAuthenticateMiddleware } = require('../middleware/isAuthenicatedMiddleware');
 const router = express.Router();
 
