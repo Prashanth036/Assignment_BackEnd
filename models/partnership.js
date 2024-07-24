@@ -71,6 +71,5 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'Partnership',
   });
- Partnership.sync({force:true})
   return Partnership;
 };
