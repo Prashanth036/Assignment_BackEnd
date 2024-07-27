@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../../models");
 
 const createBussinessEquityForm = async (req, res) => {
   try {

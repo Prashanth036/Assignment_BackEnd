@@ -2,11 +2,11 @@ const express = require('express');
 const { createBussinessEquityForm,
     getBusinessEquityFormDetails,
     getBussinessEquityFormDetailsById, 
-    deleteBussinessEquityFormById} = require("../controllers/CompanyFormController");
+    deleteBussinessEquityFormById} = require("../controllers/BusinessControllers/CompanyFormController");
 const { isAuthenticateMiddleware } = require('../middleware/isAuthenicatedMiddleware');
 const router = express.Router();
 
-const creatorFormController = require('../controllers/CreatorFormController');
+const creatorFormController = require('../controllers/CreatorController/CreatorFormController');
 
 // Route to create a new creator form
 router.post('/creator-form', creatorFormController.createCreatorForm);

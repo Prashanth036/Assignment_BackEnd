@@ -5,6 +5,8 @@ module.exports = (sequelize) => {
   class Partnership extends Model {
     static associate(models) {
       // Define associations
+      Partnership.belongsTo(models.Business, { foreignKey: 'businessAccountId' });
+      Partnership.belongsTo(models.Creator, { foreignKey: 'creatorAccountId' });
       Partnership.belongsTo(models.CompanyEquity, { foreignKey: 'businessId' });
       Partnership.belongsTo(models.CreatorForm, { foreignKey: 'creatorId' });
     }
@@ -21,6 +23,13 @@ module.exports = (sequelize) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
     },
+    businessAccountId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: { msg: 'Business Account ID must be an integer' },
+      }
+    },
     creatorId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -30,6 +39,13 @@ module.exports = (sequelize) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
+    },
+    creatorAccountId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: { msg: 'Business Account ID must be an integer' },
+      }
     },
     partnershipType: {
       type: DataTypes.ENUM('Equity', 'Collaboration', 'Funding'),
@@ -71,5 +87,6 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'Partnership',
   });
+  
   return Partnership;
 };

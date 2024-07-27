@@ -5,10 +5,10 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const db = require('./models');
 const userRoutes = require('./routes/userRoutes'); 
-const  companyRoutes= require("./routes/companyRoutes")
-const equityRoutes=require("./routes/equityRoutes");
-const partnerRoutes=require("./routes/partnershipRoutes");
-
+const companyRoutes = require('./routes/companyRoutes');
+const equityRoutes = require('./routes/equityRoutes');
+const partnerRoutes = require('./routes/partnershipRoutes');
+const adminApp = require('./adminApp'); // Import the admin sub-application
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ const port = process.env.PORT || 3000;
 const corsOptions = {
   origin: process.env.REACT_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, // Allow credentials (cookies, authorization headers)
+  credentials: true,
 };
 
 app.use(express.json());
@@ -28,16 +28,17 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
-// Use the user routes
+// Use the admin sub-application
+app.use('/admin', adminApp);
+
+// Use other routes
 app.use('/api', userRoutes);
 app.use('/api', companyRoutes);
 app.use('/api', equityRoutes);
-app.use("/api",partnerRoutes)
-
-
+app.use("/api", partnerRoutes);
 
 db.sequelize.authenticate()
-  .then(() => db.sequelize.sync({force:false}))
+  .then(() => db.sequelize.sync({ force: false }))
   .then(() => {
     console.log('Connection has been established successfully.');
     app.listen(port, () => {

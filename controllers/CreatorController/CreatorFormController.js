@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../../models");
 
 // Create a new creator form
 const createCreatorForm = async (req, res) => {

@@ -47,18 +47,6 @@ module.exports = (sequelize) => {
         this.setDataValue('email', value.trim()); // Trim whitespace
       }
     },
-    company: {
-      type: DataTypes.STRING,
-      validate: {
-        len: {
-          args: [0, 50],
-          msg: 'Company name cannot exceed 50 characters'
-        }
-      },
-      set(value) {
-        this.setDataValue('company', value ? value.trim() : null); // Trim whitespace or set to null if empty
-      }
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

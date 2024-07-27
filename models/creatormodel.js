@@ -7,10 +7,26 @@ module.exports = (sequelize) => {
   class Creator extends Model {
     static associate(models) {
       // Define associations here if needed
+      Creator.hasOne(models.CreatorForm, { foreignKey: 'creatorAccountId' });
+      Creator.hasOne(models.Partnership, { foreignKey: 'creatorAccountId' });
+
     }
   }
 
   Creator.init({
+    creatorAccountId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true, // Set this as the primary key
+      allowNull: false,
+      unique: {
+        msg: 'Business Account ID already exists'
+      },
+      validate: {
+        isInt: { msg: 'Business Account ID must be an integer' },
+        notNull: { msg: 'Business Account ID is required' }
+      }
+    },
     creatorName: {
       type: DataTypes.STRING,
       allowNull: false,

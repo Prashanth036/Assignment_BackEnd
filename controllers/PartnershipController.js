@@ -30,6 +30,7 @@ const createPartnership = async (req, res) => {
       terms,
       notes
     });
+    
     res.status(201).json(newPartnership);
   } catch (error) {
     res.status(500).json({ error: error.message });

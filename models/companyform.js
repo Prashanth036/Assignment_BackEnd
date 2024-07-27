@@ -11,6 +11,9 @@ module.exports = (sequelize) => {
     static associate(models) {
       // Define association here
       CompanyEquity.hasMany(models.Partnership, { foreignKey: 'businessId' });
+      CompanyEquity.belongsTo(models.Business, {
+        foreignKey: 'businessAccountId',
+      });
     }
   }
 
@@ -24,6 +27,13 @@ module.exports = (sequelize) => {
       validate: {
         isInt: { msg: 'Business ID must be an integer' },
         notNull: { msg: 'Business ID is required' }
+      }
+    },
+    businessAccountId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: { msg: 'Business Account ID must be an integer' },
       }
     },
     businessName: {
@@ -86,7 +96,6 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'CompanyEquity',
   });
-
-
+   
   return CompanyEquity;
 };

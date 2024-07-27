@@ -6,6 +6,8 @@ module.exports = (sequelize) => {
     static associate(models) {
       // Define associations here
       CreatorForm.hasMany(models.Partnership, { foreignKey: 'creatorId' });
+      CreatorForm.belongsTo(models.Creator, { foreignKey: 'creatorAccountId' });
+
     }
   }
 
@@ -15,6 +17,13 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
+    },
+    creatorAccountId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: { msg: 'Business Account ID must be an integer' },
+      }
     },
     name: {
       type: DataTypes.STRING,
