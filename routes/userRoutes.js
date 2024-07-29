@@ -27,7 +27,9 @@ const { isAuthenticateMiddleware } = require('../middleware/isAuthenicatedMiddle
 // Business Routes
 router.post('/business/login', LoginBusiness);
 router.post('/business/register', CreateBusiness);
-router.get('/business', isAuthenticateMiddleware, getBusiness);
+router.get('/business',
+  //  isAuthenticateMiddleware,
+    getBusiness);
 router.get('/businesses', isAuthenticateMiddleware, getBusinesses);
 router.put('/business/:businessId', updateBusiness);
 
@@ -51,7 +53,9 @@ router.post('/employee/login', loginEmployee);
 // ], createEmployee);
 router.post('/employee/register', createEmployee);
 router.get('/employee', isAuthenticateMiddleware, getEmployeeById);
-router.get('/employees', isAuthenticateMiddleware, getEmployees);
+router.get('/employees',
+  //  isAuthenticateMiddleware,
+    getEmployees);
 router.put('/employee/:employeeId', isAuthenticateMiddleware, updateEmployee);
 router.delete('/employee/:employeeId', isAuthenticateMiddleware, deleteEmployee);
 

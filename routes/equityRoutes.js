@@ -18,7 +18,7 @@ router.get('/creators/:id', creatorFormController.getCreatorFormDetailsById);
 router.get('/creator-form', creatorFormController.getCreatorFormDetails);
 
 
-router.post("/bussiness-form", createBussinessEquityForm);
+router.post("/business-form", createBussinessEquityForm);
 router.get("/business-form",
     // isAuthenticateMiddleware,
     getBusinessEquityFormDetails);
