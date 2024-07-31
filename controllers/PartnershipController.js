@@ -5,6 +5,7 @@ const createPartnership = async (req, res) => {
   const {
     businessId,
     creatorId,
+    employeeId,
     partnershipType,
     equityShare,
     collaborationDetails,
@@ -28,11 +29,12 @@ const createPartnership = async (req, res) => {
       endDate,
       status,
       terms,
-      notes
+      notes,employeeId
     });
     
     res.status(201).json(newPartnership);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: error.message });
   }
 };

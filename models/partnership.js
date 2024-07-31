@@ -9,10 +9,22 @@ module.exports = (sequelize) => {
       Partnership.belongsTo(models.Creator, { foreignKey: 'creatorAccountId' });
       Partnership.belongsTo(models.CompanyEquity, { foreignKey: 'businessId' });
       Partnership.belongsTo(models.CreatorForm, { foreignKey: 'creatorId' });
-    }
+      Partnership.belongsTo(models.Employee, {
+        foreignKey: 'employeeId',
+      });    }
   }
 
   Partnership.init({
+    employeeId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'Employees', // Ensure this matches the name used in migrations
+        key: 'employeeId'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
     businessId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -26,6 +38,10 @@ module.exports = (sequelize) => {
     businessAccountId: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: 'Businesses', // Ensure this matches the name used in migrations
+        key: 'businessAccountId'
+      },
       validate: {
         isInt: { msg: 'Business Account ID must be an integer' },
       }
@@ -43,6 +59,10 @@ module.exports = (sequelize) => {
     creatorAccountId: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: 'Creators', // Ensure this matches the name used in migrations
+        key: 'creatorAccountId'
+      },
       validate: {
         isInt: { msg: 'Business Account ID must be an integer' },
       }
@@ -87,6 +107,5 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'Partnership',
   });
-  
   return Partnership;
 };

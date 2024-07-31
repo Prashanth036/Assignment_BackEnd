@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       // Define associations here
       CreatorForm.hasMany(models.Partnership, { foreignKey: 'creatorId' });
       CreatorForm.belongsTo(models.Creator, { foreignKey: 'creatorAccountId' });
-
+      CreatorForm.belongsTo(models.Employee, { foreignKey: 'employeeId' });
     }
   }
 
@@ -18,9 +18,23 @@ module.exports = (sequelize) => {
       primaryKey: true,
       allowNull: false
     },
+    employeeId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'Employees', // Ensure this matches the name used in migrations
+        key: 'employeeId'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
     creatorAccountId: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: 'Creators', // Ensure this matches the name used in migrations
+        key: 'creatorAccountId'
+      },
       validate: {
         isInt: { msg: 'Business Account ID must be an integer' },
       }

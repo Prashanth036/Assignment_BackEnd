@@ -163,11 +163,38 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+const getEmployeePartnerships = async (req, res) => {
+  try {
+    const  employeeId  = req.params.id;
+    console.log(employeeId)
+    // Fetch the employee's partnerships including related CompanyEquity and CreatorForm
+    const employee = await db.Employee.findOne({
+      where: {  employeeId },
+      include: {
+        model: db.Partnership,
+        include: [db.CompanyEquity, db.CreatorForm]
+      }
+    });
+
+    if (!employee) {
+      return res.status(404).json({ error: 'Employee not found' });
+    }
+
+    res.json(employee.Partnerships);
+  } catch (error) {
+    console.error('Error fetching partnerships:', error);
+    res.status(500).json({ error: 'An error occurred while fetching partnerships' });
+  }
+}
+
+
+
 module.exports = {
   createEmployee,
   loginEmployee,
   getEmployeeById,
   getEmployees,
   updateEmployee,
-  deleteEmployee
+  deleteEmployee,
+  getEmployeePartnerships
 };

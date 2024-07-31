@@ -23,6 +23,10 @@ const {
     deleteEmployee
   }=require("../controllers/EmployeeController");
 const { isAuthenticateMiddleware } = require('../middleware/isAuthenicatedMiddleware');
+const adminContoller=require("../controllers/AdminControllers/AdminAuthController")
+
+
+
 
 // Business Routes
 router.post('/business/login', LoginBusiness);
@@ -59,5 +63,7 @@ router.get('/employees',
 router.put('/employee/:employeeId', isAuthenticateMiddleware, updateEmployee);
 router.delete('/employee/:employeeId', isAuthenticateMiddleware, deleteEmployee);
 
+
+router.get("/count",adminContoller.totalTablesCount)
 
 module.exports = router;

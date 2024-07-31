@@ -2,15 +2,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const db = require('../../models');
+const { generateAccessToken } = require('../../middleware/isAuthenicatedMiddleware');
 
 // Generate Access Token
-const generateAccessToken = (email, secret, expiresIn) => {
-  return jwt.sign({ email }, secret, { expiresIn });
-};
+// const generateAccessToken = (email, secret, expiresIn) => {
+//   return jwt.sign({ email }, secret, { expiresIn });
+// };
 
 // Create Admin
 const createAdmin = async (req, res) => {
-  const { firstName, lastName, email, password, userName } = req.body;
+  const {  adminId,email, password, userName } = req.body;
+  console.log(adminId,email, password, userName )
 
   try {
     // Validate input
@@ -31,16 +33,15 @@ const createAdmin = async (req, res) => {
     }
 
     // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create new admin
     const newAdmin = await db.Admin.create({
-      firstName,
-      lastName,
+     adminId,
       email,
-      password: hashedPassword,
-      userName
+      password,
+     username: userName
     });
 
     // Generate tokens
@@ -169,11 +170,51 @@ const deleteAdmin = async (req, res) => {
   }
 };
 
+const totalTablesCount=async(req,res)=>{
+  const employeCount=await db.Employee.count();
+  const findCompaniesCount=await db.Company.count();
+  const businessOffers=await db.CompanyEquity.count();
+  const creatorOffers=await db.CreatorForm.count();
+  const businessCount=await db.Business.count();    
+  const creatorCount=await db.Creator.count();
+  const partnershipCount=await db.Partnership.count();
+  // const findCreatorCount=await 
+  return res.status(200).json([
+    // {
+    //   "Total Agencies": 
+    // },
+    {
+      "Total Employees": employeCount
+    },
+    {
+      "Total Business": businessCount
+    },
+    {
+      "Total Creators": creatorCount
+    },
+    {
+      "Total Partnerships": partnershipCount
+    },
+    {
+      "BusinnessOffers":businessOffers 
+    },
+     {
+      "CreatorOffers":creatorOffers 
+    },
+   
+    {
+      "Find Companies": findCompaniesCount
+    },
+  ])
+  
+}
+
 module.exports = {
   createAdmin,
   loginAdmin,
   getAdminById,
   getAdmins,
   updateAdmin,
-  deleteAdmin
+  deleteAdmin,
+  totalTablesCount
 };

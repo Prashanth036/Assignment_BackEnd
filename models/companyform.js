@@ -14,10 +14,14 @@ module.exports = (sequelize) => {
       CompanyEquity.belongsTo(models.Business, {
         foreignKey: 'businessAccountId',
       });
+      CompanyEquity.belongsTo(models.Employee, {
+        foreignKey: 'employeeId',
+      });
     }
   }
 
   CompanyEquity.init({
+    
     businessId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -29,9 +33,23 @@ module.exports = (sequelize) => {
         notNull: { msg: 'Business ID is required' }
       }
     },
+    employeeId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'Employees', // Ensure this matches the name used in migrations
+        key: 'employeeId'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
     businessAccountId: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: 'Businesses', // Ensure this matches the name used in migrations
+        key: 'businessAccountId'
+      },
       validate: {
         isInt: { msg: 'Business Account ID must be an integer' },
       }

@@ -9,6 +9,9 @@ const adminApp = express();
 
 const userRoutes = require('./routes/userRoutes'); 
 const equityRoutes = require('./routes/equityRoutes');
+const adminRoutes =require("./routes/adminRoutes");
+const partnerRoutes = require('./routes/partnershipRoutes');
+
 
 
 
@@ -29,6 +32,9 @@ adminApp.use(cors(corsOptions));
 
  adminApp.use('/', userRoutes);
  adminApp.use('/', equityRoutes);
+ adminApp.use('/', adminRoutes);
+ adminApp.use('/', partnerRoutes);
+
 
 
 adminApp.on('mount', function (parent) {

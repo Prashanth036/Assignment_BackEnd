@@ -14,6 +14,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Employee.belongsTo(models.Agency, {
+        foreignKey: 'agencyId',
+      });
+      Employee.hasMany(models.Partnership, {
+        foreignKey: "employeeId"
+      })
+      Employee.hasMany(models.CompanyEquity, {
+        foreignKey: "employeeId"
+      })
+      Employee.hasMany(models.CreatorForm, {
+        foreignKey: "employeeId"
+      })
+
     }
 
     // Method to validate password
@@ -23,6 +36,22 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Employee.init({
+    employeeId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
+    agencyId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'Agencies', // Ensure this matches the name used in migrations
+        key: 'agencyId'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,

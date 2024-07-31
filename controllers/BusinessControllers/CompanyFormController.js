@@ -15,7 +15,8 @@ const createBussinessEquityForm = async (req, res) => {
       contactPhone, 
       address, 
       website, 
-      establishedYear 
+      establishedYear,
+      employeeId
     } = req.body;
 
     // Create a new entry with the provided fields
@@ -31,7 +32,7 @@ const createBussinessEquityForm = async (req, res) => {
       contactPhone, 
       address, 
       website, 
-      establishedYear
+      establishedYear,employeeId
     });
 
     // Send the newly created entry as a response

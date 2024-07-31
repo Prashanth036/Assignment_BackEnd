@@ -17,7 +17,8 @@ const createCreatorForm = async (req, res) => {
       offerType, 
       equityPercentage, 
       fundingAmount, 
-      ideaDescription 
+      ideaDescription,
+      employeeId
     } = req.body;
 
     // Create a new entry with the provided fields
@@ -34,7 +35,7 @@ const createCreatorForm = async (req, res) => {
       offerType, 
       equityPercentage, 
       fundingAmount, 
-      ideaDescription
+      ideaDescription,employeeId
     });
 
     // Send the newly created entry as a response
