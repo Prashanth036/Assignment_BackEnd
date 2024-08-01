@@ -171,6 +171,7 @@ const deleteAdmin = async (req, res) => {
 };
 
 const totalTablesCount=async(req,res)=>{
+  const agencyCount=await db.Agency.count();
   const employeCount=await db.Employee.count();
   const findCompaniesCount=await db.Company.count();
   const businessOffers=await db.CompanyEquity.count();
@@ -180,9 +181,9 @@ const totalTablesCount=async(req,res)=>{
   const partnershipCount=await db.Partnership.count();
   // const findCreatorCount=await 
   return res.status(200).json([
-    // {
-    //   "Total Agencies": 
-    // },
+    {
+      "Total Agencies": agencyCount
+    },
     {
       "Total Employees": employeCount
     },

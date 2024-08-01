@@ -34,14 +34,18 @@ router.post('/business/register', CreateBusiness);
 router.get('/business',
   //  isAuthenticateMiddleware,
     getBusiness);
-router.get('/businesses', isAuthenticateMiddleware, getBusinesses);
+router.get('/businesses',
+  //  isAuthenticateMiddleware,
+    getBusinesses);
 router.put('/business/:businessId', updateBusiness);
 
 // Creator Routes
 router.post('/creator/login', LoginCreator);
 router.post('/creator/register', CreateCreator);
 router.get('/creator', isAuthenticateMiddleware, getCreator);
-router.get('/creators', isAuthenticateMiddleware, getCreators);
+router.get('/creators',
+  //  isAuthenticateMiddleware, 
+   getCreators);
 router.put('/creator/:creatorId', updateCreator);
 
 

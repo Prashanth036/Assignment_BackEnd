@@ -16,7 +16,7 @@ router.post('/partnerships', createPartnership);
 
 // Get all partnerships
 router.get('/partnerships',
-  // [isAdminMiddleware.adminAuthenticateMiddleware],
+  [isAdminMiddleware.adminAuthenticateMiddleware],
   getAllPartnerships);
 
 // Get a partnership by ID
